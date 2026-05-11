@@ -1,35 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    tools:context=".FirstFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="0dp"
+        android:fadeScrollbars="false"
+        android:fillViewport="true"
+        android:scrollbarSize="@dimen/space_2xs"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button_second"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/previous"
-            app:layout_constraintBottom_toTopOf="@id/textview_second"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
 
-        <TextView
-            android:id="@+id/textview_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/lorem_ipsum"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_second" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            <!-- especificações do destilado -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                app:cardCornerRadius="@dimen/radius_large"
+                app:cardElevation="@dimen/elevation_level_4">
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_small"
+                    app:flexWrap="wrap"
+                    app:justifyContent="flex_start">
+
+                    <include
+                        android:id="@+id/cardViewF1C1"
+                        layout="@layout/card_padrao" />
+
+                    <include
+                        android:id="@+id/cardViewF1C2"
+                        layout="@layout/card_padrao" />
+
+                    <include
+                        android:id="@+id/cardViewF1C3"
+                        layout="@layout/card_padrao" />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- especificações do fundo -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                app:cardCornerRadius="@dimen/radius_large"
+                app:cardElevation="@dimen/elevation_level_4">
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_small"
+                    app:flexWrap="wrap"
+                    app:justifyContent="flex_start">
+
+                    <include
+                        android:id="@+id/cardViewF2C1"
+                        layout="@layout/card_padrao" />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- especificações da alimentação -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                app:cardCornerRadius="@dimen/radius_large"
+                app:cardElevation="@dimen/elevation_level_4">
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_small"
+                    app:flexWrap="wrap"
+                    app:justifyContent="flex_start">
+
+                    <include
+                        android:id="@+id/cardViewF3C1"
+                        layout="@layout/card_padrao" />
+
+                    <include
+                        android:id="@+id/cardViewF3C2"
+                        layout="@layout/card_padrao" />
+
+                    <include
+                        android:id="@+id/cardViewF3C3"
+                        layout="@layout/card_padrao" />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- especificações do refluxo -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                app:cardCornerRadius="@dimen/radius_large"
+                app:cardElevation="@dimen/elevation_level_4">
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_small"
+                    app:flexWrap="wrap"
+                    app:justifyContent="flex_start">
+
+                    <include
+                        android:id="@+id/cardViewF4C1"
+                        layout="@layout/card_padrao" />
+
+                    <include
+                        android:id="@+id/cardViewF4C2"
+                        layout="@layout/card_padrao" />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- especificação do condensador -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                app:cardCornerRadius="@dimen/radius_large"
+                app:cardElevation="@dimen/elevation_level_4">
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_small"
+                    app:flexWrap="wrap"
+                    app:justifyContent="flex_start">
+
+                    <include
+                        android:id="@+id/cardViewF5C1"
+                        layout="@layout/card_padrao" />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_import"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

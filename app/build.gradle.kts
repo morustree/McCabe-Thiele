@@ -49,4 +49,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+
+    //adicionadas
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 }
