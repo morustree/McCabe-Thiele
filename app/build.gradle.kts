@@ -52,4 +52,5 @@ dependencies {
 
     //adicionadas
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("org.apache.commons:commons-math3:3.6.1")
 }

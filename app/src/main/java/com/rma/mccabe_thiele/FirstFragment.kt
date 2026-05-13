@@ -1,12 +1,15 @@
 package com.rma.mccabe_thiele
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.rma.mccabe_thiele.databinding.FragmentFirstBinding
+import org.apache.commons.math3.analysis.UnivariateFunction
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -33,7 +36,19 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            val especificacoes: Especificacoes
+            val curvaEquilibirio: UnivariateFunction
+            val metodoMcCabeThiele = Metodo(especificacoes, curvaEquilibirio)
+            when (val resultados = metodoMcCabeThiele.calcular()) {
+                is Resultados.Sucesso -> {
+                    // mostrar resultados na tela
+                    // desenhar gráfico
+                }
+                is Resultados.Erro -> {
+                    Snackbar.make(binding.root, resultados.mensagem, Snackbar.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
