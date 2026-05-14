@@ -1,6 +1,6 @@
-package com.rma.mccabe_thiele
+package com.rma.mccabe_thiele.model
 
-data class Especificacoes(
+data class McTEspecificacoes(
     val xD: Double, // fração molar do componente mais volátil no destilado
     val xB: Double, // fração molar do componente mais volátil no resíduo
     val zF: Double, // fração molar do componente mais volátil na carga

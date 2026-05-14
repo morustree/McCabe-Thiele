@@ -19,6 +19,22 @@
     <string name="button_import">Importar csv</string>
 
 
+
+    <string name="resultados_erro1">"A fração molar do componente mais volátil na alimentação (zF) não deve ser maior ou igual à do destilado (xD)."</string>
+    <string name="resultados_erro2">"A fração molar do componente mais volátil na alimentação (zF) não deve ser menor ou igual que a do resíduo (xB)."</string>
+    <string name="resultados_erro3">"Falha no cálculo da vazão de destilado."</string>
+    <string name="resultados_erro4">"Falha no cálculo da vazão de resíduo."</string>
+    <string name="resultados_erro5">"Falha no cálculo do número mínimo de estágios."</string>
+    <string name="resultados_erro6">"Falha no cálculo da razão mínima de refluxo."</string>
+    <string name="resultados_erro7">"Falha no cálculo da razão de refluxo."</string>
+    <string name="resultados_erro8">"Falha no cálculo do número de estágios."</string>
+    <string name="resultados_erro9">"Falha no cálculo da linha-q."</string>
+    <string name="resultados_erro10">"Falha no cálculo da reta de retificação."</string>
+    <string name="resultados_erro11">"Falha no cálculo da reta de estripagem."</string>
+    <string name="resultados_erro12">"Falha no cálculo da interseção das retas."</string>
+
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
