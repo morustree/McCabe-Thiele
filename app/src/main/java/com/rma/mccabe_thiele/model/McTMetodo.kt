@@ -1,6 +1,5 @@
 package com.rma.mccabe_thiele.model
 
-import android.util.Log
 import com.rma.mccabe_thiele.R
 import org.apache.commons.math3.analysis.UnivariateFunction
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction

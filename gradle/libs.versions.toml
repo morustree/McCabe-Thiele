@@ -10,6 +10,7 @@ constraintlayout = "2.2.1"
 activityKtx = "1.13.0"
 navigationFragmentKtx = "2.9.8"
 navigationUiKtx = "2.9.8"
+ksp = "2.1.0-1.0.29"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,4 +26,5 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 

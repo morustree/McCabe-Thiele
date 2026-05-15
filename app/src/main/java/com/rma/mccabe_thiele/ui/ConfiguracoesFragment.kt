@@ -15,10 +15,8 @@ import com.rma.mccabe_thiele.databinding.FragmentConfiguracoesBinding
 class ConfiguracoesFragment : Fragment() {
 
     private var _binding: FragmentConfiguracoesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +36,10 @@ class ConfiguracoesFragment : Fragment() {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

@@ -1,5 +1,6 @@
 package com.rma.mccabe_thiele.ui
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +61,10 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
+        when (item.itemId) {
             R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -70,4 +72,16 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+
+    private fun abrirConfiguracoes() = abrirComFade(Intent(this, InstrucoesActivity::class.java))
+
+
+    private fun abrirComFade(intent: Intent) {
+        val options = android.app.ActivityOptions.makeCustomAnimation(
+            this, android.R.anim.fade_in, android.R.anim.fade_out
+        )
+        startActivity(intent, options.toBundle())
+    }
+
 }

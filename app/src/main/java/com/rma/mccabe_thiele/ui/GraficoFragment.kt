@@ -36,6 +36,7 @@ class GraficoFragment : Fragment() {
 
     private var dadosImportados: List<Pair<Double, Double>> = emptyList()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +59,13 @@ class GraficoFragment : Fragment() {
             importLauncher.launch(arrayOf("text/comma-separated-values", "text/plain", "application/octet-stream"))
         }
     }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
     private fun importarCsv(uri: Uri) {
         binding.buttonImport.isEnabled = false
@@ -113,10 +121,5 @@ class GraficoFragment : Fragment() {
         } catch (e: Exception) {
             Snackbar.make(binding.root, getString(R.string.akima_erro, e.message ?: getString(R.string.desconhecido_erro)), Snackbar.LENGTH_INDEFINITE).setAction("OK"){}.show()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
