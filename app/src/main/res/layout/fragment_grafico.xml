@@ -12,13 +12,13 @@
         android:padding="16dp">
 
         <Button
-            android:id="@+id/button_first"
+            android:id="@+id/button_calculate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next"
+            android:text="@string/button_calculate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/graficoMcCabe" />
 
 
         <com.github.mikephil.charting.charts.LineChart
@@ -29,7 +29,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_first" />
+            app:layout_constraintTop_toBottomOf="@+id/button_import" />
+
+        <Button
+            android:id="@+id/button_import"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_import"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

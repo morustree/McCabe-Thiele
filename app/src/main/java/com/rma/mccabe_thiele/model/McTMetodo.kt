@@ -1,5 +1,6 @@
 package com.rma.mccabe_thiele.model
 
+import android.util.Log
 import com.rma.mccabe_thiele.R
 import org.apache.commons.math3.analysis.UnivariateFunction
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction
@@ -25,7 +26,7 @@ class McTMetodo(
             val coefLinear = ((-1) * mcTEspecificacoes.zF / (mcTEspecificacoes.valorq - 1))
             PolynomialFunction(doubleArrayOf(coefLinear, coefAngular))
         } else {
-            // PolynomialFunction não suporta retas verticais
+            // retas verticais
             null
         }
     }
@@ -120,7 +121,10 @@ class McTMetodo(
 
 
     private val razaoRefluxo: Double? by lazy {
-        razaoMinRefluxo?.let { mcTEspecificacoes.razoesR * it }
+        razaoMinRefluxo?.let { rMin ->
+            val calculado = mcTEspecificacoes.razoesR * rMin
+            if (calculado <= rMin) null else calculado
+        }
     }
 
 
@@ -138,16 +142,11 @@ class McTMetodo(
             //y1 = f(x); y2 = g(x). Na interseção, y1 = y2. Então: f(x) = g(x) e f(x) - g(x) = 0
             raiz = calcularXIntersecao(
                 funcao1 = curvaEquilibirio,
-                minimo = 0.0,
+                minimo = 0.0, //todo: confirmar se não é preciso colocar o primeiro item da lista original de pontos para não dar erro
                 maximo = raiz,
                 valorY = pontos.last().second
             ) ?: return@lazy null
-            pontos.add(
-                Pair(
-                    raiz,
-                    pontos.last().second
-                )
-            ) // atualiza o valor de x e repete o valor do y anterior - faz um ponto sobre a curva de equilíbrio
+            pontos.add(Pair(raiz, pontos.last().second)) // atualiza o valor de x e repete o valor do y anterior - faz um ponto sobre a curva de equilíbrio
             pontos.add(Pair(raiz, raiz)) // faz um ponto sobre a reta de 45
             numMinEst++
             indice += 1
@@ -175,22 +174,12 @@ class McTMetodo(
             while (raiz > xIntersecao && indice < 500) {
                 raiz = calcularXIntersecao(
                     funcao1 = curvaEquilibirio,
-                    minimo = 0.0,
+                    minimo = 0.0, //todo: confirmar se não é preciso colocar o primeiro item da lista original de pontos para não dar erro
                     maximo = raiz,
                     valorY = pontosRetificacao.last().second
                 ) ?: return@lazy null
-                pontosRetificacao.add(
-                    Pair(
-                        raiz,
-                        pontosRetificacao.last().second
-                    )
-                ) // atualiza o valor de x e repete o valor do y anterior - faz um ponto sobre a curva de equilíbrio
-                pontosRetificacao.add(
-                    Pair(
-                        raiz,
-                        retaRetificacao.value(raiz)
-                    )
-                ) // faz um ponto sobre a reta de retificação
+                pontosRetificacao.add(Pair(raiz, pontosRetificacao.last().second)) // atualiza o valor de x e repete o valor do y anterior - faz um ponto sobre a curva de equilíbrio
+                pontosRetificacao.add(Pair(raiz,retaRetificacao.value(raiz))) // faz um ponto sobre a reta de retificação
                 numEstagiosRetificacao++
                 indice++
             }
@@ -219,25 +208,15 @@ class McTMetodo(
             } else 0.0
 
             while (raiz > mcTEspecificacoes.xB && indice < 500) {
-                pontosEstripagem.add(
-                    Pair(
-                        raiz,
-                        retaEstripagem.value(raiz)
-                    )
-                ) // faz um ponto sobre a reta de estripagem
+                pontosEstripagem.add(Pair(raiz, retaEstripagem.value(raiz))) // faz um ponto sobre a reta de estripagem
                 numEstagiosEstripagem++
                 raiz = calcularXIntersecao(
                     funcao1 = curvaEquilibirio,
-                    minimo = 0.0,
+                    minimo = 0.0, //todo: confirmar se não é preciso colocar o primeiro item da lista original de pontos para não dar erro
                     maximo = raiz,
                     valorY = pontosEstripagem.last().second
                 ) ?: return@lazy null
-                pontosEstripagem.add(
-                    Pair(
-                        raiz,
-                        pontosEstripagem.last().second
-                    )
-                ) // atualiza o valor de x e repete o valor do y anterior - faz um ponto sobre a curva de equilíbrio
+                pontosEstripagem.add(Pair(raiz, pontosEstripagem.last().second)) // atualiza o valor de x e repete o valor do y anterior - faz um ponto sobre a curva de equilíbrio
                 indice++
             }
 

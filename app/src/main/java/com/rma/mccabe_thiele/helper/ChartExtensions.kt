@@ -12,8 +12,8 @@ import org.apache.commons.math3.analysis.UnivariateFunction
  * Converte uma UnivariateFunction em uma lista Entry.
  */
 fun UnivariateFunction.toEntries(
-    start: Double = 0.0,
-    end: Double = 1.0,
+    start: Double,
+    end: Double,
     steps: Int = 100
 ): List<Entry> {
     val entries = mutableListOf<Entry>()
@@ -28,18 +28,25 @@ fun UnivariateFunction.toEntries(
 /**
  * Converte uma lista de pares (x, y) em um LineDataSet configurado.
  */
-fun List<Pair<Double, Double>>.toLineDataSetFromPairs(label: String, color: Int): LineDataSet {
-    val entries = this.reversed().map { Entry(it.first.toFloat(), it.second.toFloat()) }
-    return entries.toLineDataSet(label, color)
+fun List<Pair<Double, Double>>.toLineDataSetFromPairs(label: String, color: Int, desenharCirculos: Boolean = false): LineDataSet {
+    val lista = if (this.isNotEmpty() && this.first().first > this.last().first) {
+        this.reversed()
+    } else {
+        this
+    }
+
+    val entries = lista.map { Entry(it.first.toFloat(), it.second.toFloat()) }
+
+    return entries.toLineDataSet(label, color, desenharCirculos)
 }
 
 /**
  * Converte uma lista de Entry diretamente em um LineDataSet.
  */
-fun List<Entry>.toLineDataSet(label: String, color: Int): LineDataSet {
+fun List<Entry>.toLineDataSet(label: String, color: Int, desenharCirculos: Boolean = false): LineDataSet {
     return LineDataSet(this, label).apply {
         this.color = color
-        setDrawCircles(false)
+        setDrawCircles(desenharCirculos)
         setDrawValues(false)
         lineWidth = 2f
     }

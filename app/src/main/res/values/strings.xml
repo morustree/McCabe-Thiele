@@ -16,22 +16,33 @@
     <string name="text_input_popup_hint">Digite ou use o slider</string>
     <string name="text_view_popup_titulo">Item</string>
 
-    <string name="button_import">Importar csv</string>
 
 
-
+    <!-- McTMetodo -->
     <string name="resultados_erro1">"A fração molar do componente mais volátil na alimentação (zF) não deve ser maior ou igual à do destilado (xD)."</string>
     <string name="resultados_erro2">"A fração molar do componente mais volátil na alimentação (zF) não deve ser menor ou igual que a do resíduo (xB)."</string>
     <string name="resultados_erro3">"Falha no cálculo da vazão de destilado."</string>
     <string name="resultados_erro4">"Falha no cálculo da vazão de resíduo."</string>
     <string name="resultados_erro5">"Falha no cálculo do número mínimo de estágios."</string>
     <string name="resultados_erro6">"Falha no cálculo da razão mínima de refluxo."</string>
-    <string name="resultados_erro7">"Falha no cálculo da razão de refluxo."</string>
+    <string name="resultados_erro7">"Falha no cálculo da razão de refluxo. Verifique se R > Rmin."</string>
     <string name="resultados_erro8">"Falha no cálculo do número de estágios."</string>
     <string name="resultados_erro9">"Falha no cálculo da linha-q."</string>
     <string name="resultados_erro10">"Falha no cálculo da reta de retificação."</string>
     <string name="resultados_erro11">"Falha no cálculo da reta de estripagem."</string>
     <string name="resultados_erro12">"Falha no cálculo da interseção das retas."</string>
+
+
+
+    <!-- GraficoFragment -->
+    <string name="csv_erro1">"Erro ao processar o arquivo"</string>
+    <string name="csv_erro2">"Falha na validação de dados do arquivo."</string>
+    <string name="csv_sucesso">Sucesso: %1$d pontos carregados.</string>
+    <string name="akima_qtde_pontos">"Existem poucos pontos no arquivo CSV para a interpolação Akima Spline (mínimo de 5 pontos)."</string>
+    <string name="akima_erro">Erro ao realizar o cálculo: %1$s</string>
+    <string name="desconhecido_erro">"Erro desconhecido"</string>
+    <string name="button_import">Importar csv</string>
+    <string name="button_calculate">Calcular</string>
 
 
 

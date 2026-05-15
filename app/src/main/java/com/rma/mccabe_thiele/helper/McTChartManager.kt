@@ -75,19 +75,19 @@ class McTChartManager(private val chart: LineChart) {
         zF: Double,
         valorq: Double,
         xD: Double,
-        xB: Double
+        xB: Double,
+        pontosOriginais: List<Pair<Double, Double>>
     ) {
-        val dataSets = mutableListOf<LineDataSet>()
-
+        val dataSets = ArrayList<com.github.mikephil.charting.interfaces.datasets.ILineDataSet>()
         // reta de 45 graus
         val reta45 = UnivariateFunction { x -> x }
-        dataSets.add(reta45.toEntries().toLineDataSet("y = x", Color.GRAY).apply {
-            enableDashedLine(10f, 10f, 0f)
+        dataSets.add(reta45.toEntries(0.0, 1.0).toLineDataSet("y = x", Color.GRAY).apply {
+            enableDashedLine(10f, 10f, 4f)
             lineWidth = 1f
         })
 
         // curva de equilíbrio
-        dataSets.add(curvaEquilibrio.toEntries().toLineDataSet("Equilíbrio", Color.BLUE).apply {
+        dataSets.add(curvaEquilibrio.toEntries(pontosOriginais.first().first, pontosOriginais.last().first).toLineDataSet("Equilíbrio", Color.BLUE).apply {
             mode = LineDataSet.Mode.CUBIC_BEZIER
         })
 
@@ -128,7 +128,64 @@ class McTChartManager(private val chart: LineChart) {
             setDrawCircles(false)
         })
 
-        chart.data = LineData(dataSets as List<LineDataSet>)
+        // pontos do CSV
+        if (pontosOriginais.isNotEmpty()) {
+            dataSets.add(pontosOriginais.toLineDataSetFromPairs("Dados CSV", Color.BLACK, desenharCirculos = true).apply {
+                setDrawCircles(true)
+                setCircleColor(Color.BLACK)
+                circleRadius = 2f
+                setDrawCircleHole(false)
+                color = Color.BLACK
+                setDrawHighlightIndicators(false)
+                isHighlightEnabled = false
+                lineWidth = 1f
+                enableDashedLine(0f,100000f,0f)
+            })
+        }
+
+        chart.data = LineData(dataSets)
         chart.invalidate()
     }
+
+
+    // carrega apenas a curva de equilíbrio e a reta de 45 graus
+    fun renderizarErro(
+        curvaEquilibrio: UnivariateFunction,
+        pontosOriginais: List<Pair<Double, Double>>
+    ) {
+
+        val dataSets = ArrayList<com.github.mikephil.charting.interfaces.datasets.ILineDataSet>()
+        // reta de 45 graus
+        val reta45 = UnivariateFunction { x -> x }
+        dataSets.add(reta45.toEntries(0.0, 1.0).toLineDataSet("y = x", Color.GRAY).apply {
+            enableDashedLine(10f, 10f, 4f)
+            lineWidth = 1f
+        })
+
+        // curva de equilíbrio
+        dataSets.add(curvaEquilibrio.toEntries(pontosOriginais.first().first, pontosOriginais.last().first).toLineDataSet("Equilíbrio", Color.BLUE).apply {
+            mode = LineDataSet.Mode.CUBIC_BEZIER
+        })
+
+
+        // pontos do CSV
+        if (pontosOriginais.isNotEmpty()) {
+            dataSets.add(pontosOriginais.toLineDataSetFromPairs("Dados CSV", Color.BLACK, desenharCirculos = true).apply {
+                setDrawCircles(true)
+                setCircleColor(Color.BLACK)
+                circleRadius = 2f
+                setDrawCircleHole(false)
+                color = Color.BLACK
+                setDrawHighlightIndicators(false)
+                isHighlightEnabled = false
+                lineWidth = 1f
+                enableDashedLine(0f,100000f,0f)
+            })
+        }
+
+        chart.data = LineData(dataSets)
+        chart.invalidate()
+    }
+
+
 }
