@@ -61,11 +61,15 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> true
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                abrirConfiguracoes()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -74,7 +78,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun abrirConfiguracoes() = abrirComFade(Intent(this, InstrucoesActivity::class.java))
+    private fun abrirConfiguracoes() {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController.navigate(R.id.SecondFragment)
+    }
 
 
     private fun abrirComFade(intent: Intent) {

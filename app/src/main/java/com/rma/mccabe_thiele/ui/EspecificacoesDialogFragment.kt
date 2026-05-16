@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.rma.mccabe_thiele.databinding.PopupBinding
 import android.text.Editable
 import android.text.TextWatcher
+import java.util.Locale
 
 
 class EspecificacoesDialogFragment(
@@ -35,13 +36,13 @@ class EspecificacoesDialogFragment(
         // Inicializa os componentes com o valor que veio do CardView
         val valorValidado = valorInicial.coerceIn(0.0, 1.0) // Garante que está entre o valueFrom e valueTo do Slider
         binding.sliderPopup.value = valorValidado.toFloat()
-        binding.inputEditTextPopUp.setText(String.format("%.3f", valorValidado).replace(",", "."))
+        binding.inputEditTextPopUp.setText(String.format(Locale.US,"%.3f", valorValidado))
 
         // Sincroniza slider para edittext
         binding.sliderPopup.addOnChangeListener { _, value, fromUser ->
             if (fromUser && !atualizandoPeloTexto) {
                 atualizandoPeloSlider = true
-                val textoFormatado = String.format("%.3f", value).replace(",", ".")
+                val textoFormatado = String.format(Locale.US,"%.3f", value)
                 // Verifica se o texto realmente mudou para evitar redundância
                 if (binding.inputEditTextPopUp.text.toString() != textoFormatado) {
                     binding.inputEditTextPopUp.setText(textoFormatado)
