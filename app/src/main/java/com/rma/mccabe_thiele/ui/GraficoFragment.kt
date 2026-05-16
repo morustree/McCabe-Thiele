@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.rma.mccabe_thiele.R
 import com.rma.mccabe_thiele.data.CsvRepository
+import com.rma.mccabe_thiele.data.PreferencesManager
 import com.rma.mccabe_thiele.databinding.FragmentGraficoBinding
 import com.rma.mccabe_thiele.helper.McTChartManager
 import com.rma.mccabe_thiele.model.McTEspecificacoes
@@ -35,6 +36,8 @@ class GraficoFragment : Fragment() {
         }
 
     private var dadosImportados: List<Pair<Double, Double>> = emptyList()
+
+    private val prefsManager by lazy { PreferencesManager(requireContext()) }
 
 
     override fun onCreateView(
@@ -92,22 +95,18 @@ class GraficoFragment : Fragment() {
 
     /**
      * Realiza o cálculo de McCabe-Thiele.
-     * Prioriza os dados importados via CSV se estiverem disponíveis.
      */
     private fun executarCalculo() {
         try {
             val curvaEquilibrio = csvRepository.criarFuncaoEquilibrio(dadosImportados)
-            val specs = McTEspecificacoes(0.8, 0.12, 0.4, 0.8, 100.0, 1.3)
+            val specs = prefsManager.lerEspecificacoes()
             val metodo = McTMetodo(specs, curvaEquilibrio)
             when (val resposta = metodo.calcular()) {
                 is McTResultados.Sucesso -> {
                     chartManager.renderizar(
                         mcTResultados = resposta,
                         curvaEquilibrio = curvaEquilibrio,
-                        zF = specs.zF,
-                        valorq = specs.valorq,
-                        xD = specs.xD,
-                        xB = specs.xB,
+                        especificacoes = specs,
                         pontosOriginais = dadosImportados
                     )
                 }

@@ -161,7 +161,7 @@
                 android:id="@+id/buttonSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button_import"
+                android:text="@string/button_save_specs"
                 android:textAlignment="center" />
 
         </LinearLayout>

@@ -7,6 +7,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.rma.mccabe_thiele.model.McTEspecificacoes
 import com.rma.mccabe_thiele.model.McTResultados
 import org.apache.commons.math3.analysis.UnivariateFunction
 
@@ -72,10 +73,7 @@ class McTChartManager(private val chart: LineChart) {
     fun renderizar(
         mcTResultados: McTResultados.Sucesso,
         curvaEquilibrio: UnivariateFunction,
-        zF: Double,
-        valorq: Double,
-        xD: Double,
-        xB: Double,
+        especificacoes: McTEspecificacoes,
         pontosOriginais: List<Pair<Double, Double>>
     ) {
         val dataSets = ArrayList<com.github.mikephil.charting.interfaces.datasets.ILineDataSet>()
@@ -93,15 +91,15 @@ class McTChartManager(private val chart: LineChart) {
 
         // linha q
         val entriesQ = when {
-            mcTResultados.qline == null && valorq == 1.0 -> {
+            mcTResultados.qline == null && especificacoes.valorq == 1.0 -> {
                 listOf(
-                    Entry(zF.toFloat(), zF.toFloat()),
-                    Entry(zF.toFloat(), mcTResultados.yIntersecao.toFloat())
+                    Entry(especificacoes.zF.toFloat(), especificacoes.zF.toFloat()),
+                    Entry(especificacoes.zF.toFloat(), mcTResultados.yIntersecao.toFloat())
                 )
             }
             mcTResultados.qline != null -> {
-                val xMin = minOf(zF, mcTResultados.xIntersecao)
-                val xMax = maxOf(zF, mcTResultados.xIntersecao)
+                val xMin = minOf(especificacoes.zF, mcTResultados.xIntersecao)
+                val xMax = maxOf(especificacoes.zF, mcTResultados.xIntersecao)
                 mcTResultados.qline.toEntries(start = xMin, end = xMax)
             }
             else -> emptyList()
@@ -112,14 +110,14 @@ class McTChartManager(private val chart: LineChart) {
 
         // reta de retificação
         dataSets.add(mcTResultados.retaRetificacao.toEntries(
-            start = minOf(mcTResultados.xIntersecao, xD),
-            end = maxOf(mcTResultados.xIntersecao, xD)
+            start = minOf(mcTResultados.xIntersecao, especificacoes.xD),
+            end = maxOf(mcTResultados.xIntersecao, especificacoes.xD)
         ).toLineDataSet("Retificação", Color.RED))
 
         // reta de estripagem
         dataSets.add(mcTResultados.retaEstripagem.toEntries(
-            start = minOf(mcTResultados.xIntersecao, xB),
-            end = maxOf(mcTResultados.xIntersecao, xB)
+            start = minOf(mcTResultados.xIntersecao, especificacoes.xB),
+            end = maxOf(mcTResultados.xIntersecao, especificacoes.xB)
         ).toLineDataSet("Estripagem", Color.GREEN))
 
         // degraus

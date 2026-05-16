@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.rma.mccabe_thiele.R
+import com.rma.mccabe_thiele.data.PreferencesManager
 import com.rma.mccabe_thiele.databinding.FragmentConfiguracoesBinding
 import java.util.Locale
 import com.rma.mccabe_thiele.databinding.CardPadraoBinding
+import com.rma.mccabe_thiele.model.McTEspecificacoes
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -18,6 +20,8 @@ class ConfiguracoesFragment : Fragment() {
 
     private var _binding: FragmentConfiguracoesBinding? = null
     private val binding get() = _binding!!
+
+    private val prefsManager by lazy { PreferencesManager(requireContext()) }
 
 
     override fun onCreateView(
@@ -34,12 +38,39 @@ class ConfiguracoesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSave.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            val xD = binding.cardViewF1C1.textViewValor.text.toString().toDoubleOrNull() ?: 0.7
+            val xB = binding.cardViewF1C2.textViewValor.text.toString().toDoubleOrNull() ?: 0.2
+            val zF = binding.cardViewF1C3.textViewValor.text.toString().toDoubleOrNull() ?: 0.5
+            val valorq = binding.cardViewF2C1.textViewValor.text.toString().toDoubleOrNull() ?: 0.5
+            val vazaoF = binding.cardViewF3C1.textViewValor.text.toString().toDoubleOrNull() ?: 100.0
+            val razoesR = binding.cardViewF3C2.textViewValor.text.toString().toDoubleOrNull() ?: 1.3
+            val specs = McTEspecificacoes(
+                xD = xD,
+                xB = xB,
+                zF = zF,
+                valorq = valorq,
+                vazaoF = vazaoF,
+                razoesR = razoesR
+            )
+            prefsManager.salvarEspecificacoes(specs)
+            Snackbar.make(binding.root, getString(R.string.button_save_resultado), Snackbar.LENGTH_SHORT).show()
         }
+
+        val specsSalvas = prefsManager.lerEspecificacoes()
+        binding.cardViewF1C1.textViewValor.text = String.format(Locale.US, "%.3f", specsSalvas.xD)
+        binding.cardViewF1C2.textViewValor.text = String.format(Locale.US, "%.3f", specsSalvas.xB)
+        binding.cardViewF1C3.textViewValor.text = String.format(Locale.US, "%.3f", specsSalvas.zF)
+        binding.cardViewF2C1.textViewValor.text = String.format(Locale.US, "%.3f", specsSalvas.valorq)
+        binding.cardViewF3C1.textViewValor.text = String.format(Locale.US, "%.3f", specsSalvas.vazaoF)
+        binding.cardViewF3C2.textViewValor.text = String.format(Locale.US, "%.3f", specsSalvas.razoesR)
+
 
         atualizarCard(binding.cardViewF1C1)
         atualizarCard(binding.cardViewF1C2)
         atualizarCard(binding.cardViewF1C3)
+        atualizarCard(binding.cardViewF2C1)
+        atualizarCard(binding.cardViewF3C1)
+        atualizarCard(binding.cardViewF3C2)
 
     }
 

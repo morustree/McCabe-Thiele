@@ -23,6 +23,7 @@ class EspecificacoesDialogFragment(
     private var atualizandoPeloSlider = false
     private var atualizandoPeloTexto = false
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -76,7 +77,7 @@ class EspecificacoesDialogFragment(
         })
 
         // Retorna o valor final para o Fragment/Activity de origem
-        binding.buttonSave.setOnClickListener {
+        binding.imageButton.setOnClickListener {
             val valorFinal = binding.sliderPopup.value.toDouble()
             onValorSalvo(valorFinal)
             dismiss() // Fecha o popup
