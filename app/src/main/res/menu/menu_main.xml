@@ -4,8 +4,28 @@
     tools:context="com.rma.mccabe_thiele.ui.MainActivity">
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_import"
         android:orderInCategory="100"
+        android:title="@string/toolbar_import"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_csv_24dp"/>
+
+    <item
+        android:id="@+id/action_theme"
+        android:orderInCategory="200"
+        android:title="@string/app_theme"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_light_mode_24dp" />
+
+    <item
+        android:id="@+id/action_export"
+        android:orderInCategory="300"
+        android:title="@string/toolbar_export"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="400"
         android:title="@string/toolbar_settings"
         app:showAsAction="never" />
 

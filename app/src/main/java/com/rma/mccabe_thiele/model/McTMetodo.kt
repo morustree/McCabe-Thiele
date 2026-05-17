@@ -1,6 +1,8 @@
 package com.rma.mccabe_thiele.model
 
 import com.rma.mccabe_thiele.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.apache.commons.math3.analysis.UnivariateFunction
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction
 import org.apache.commons.math3.analysis.solvers.BrentSolver
@@ -16,7 +18,8 @@ import org.apache.commons.math3.analysis.solvers.BrentSolver
 
 class McTMetodo(
     private val mcTEspecificacoes: McTEspecificacoes,
-    private val curvaEquilibirio: UnivariateFunction
+    private val curvaEquilibirio: UnivariateFunction,
+    private val dadosImportadosX0: Double
 ) {
 
     private val linhaq: PolynomialFunction? by lazy {
@@ -92,7 +95,6 @@ class McTMetodo(
         /* A razão de refluxo mínima requer infinitos estágios,
         situação em que as retas de operação tocam a curva de equilíbrio.
         Esse ponto pode ser obtido pela interseção da linhaq com a curva de equilíbrio */
-        //todo: na interface do usuário, impor que o valor de razoesR seja maior que 1 (R deve ser maior que Rmin)
         val qlinha = linhaq
         val intersecaoX = if (qlinha != null) {
             calcularXIntersecao(
@@ -130,6 +132,7 @@ class McTMetodo(
     private val numMinEstagios: Double? by lazy {
         /* Quando as linhas de operação coincidem com a reta de 45,
         há a condição de refluxo total e a menor quantidade possível de estágios é requerida. */
+        val primeiroPontoX = dadosImportadosX0
         var numMinEst = 0.0
         var raiz = mcTEspecificacoes.xD
         var indice = 0
@@ -141,7 +144,7 @@ class McTMetodo(
             //y1 = f(x); y2 = g(x). Na interseção, y1 = y2. Então: f(x) = g(x) e f(x) - g(x) = 0
             raiz = calcularXIntersecao(
                 funcao1 = curvaEquilibirio,
-                minimo = 0.0, //todo: confirmar se não é preciso colocar o primeiro item da lista original de pontos para não dar erro
+                minimo = primeiroPontoX, //todo: 0.0
                 maximo = raiz,
                 valorY = pontos.last().second
             ) ?: return@lazy null
@@ -161,6 +164,7 @@ class McTMetodo(
 
     private val numEstagios: ResultadosNumEstagios? by lazy {
         val xIntersecao = xIntersecaoLinhaqRetificacao
+        val primeiroPontoX = dadosImportadosX0
         val retaEstripagem = retaOpEstripagem
         val retaRetificacao = retaOpRetificacao
         if (xIntersecao != null && retaEstripagem != null && retaRetificacao != null) {
@@ -173,7 +177,7 @@ class McTMetodo(
             while (raiz > xIntersecao && indice < 500) {
                 raiz = calcularXIntersecao(
                     funcao1 = curvaEquilibirio,
-                    minimo = 0.0, //todo: confirmar se não é preciso colocar o primeiro item da lista original de pontos para não dar erro
+                    minimo = primeiroPontoX, //todo: 0.0
                     maximo = raiz,
                     valorY = pontosRetificacao.last().second
                 ) ?: return@lazy null
@@ -211,7 +215,7 @@ class McTMetodo(
                 numEstagiosEstripagem++
                 raiz = calcularXIntersecao(
                     funcao1 = curvaEquilibirio,
-                    minimo = 0.0, //todo: confirmar se não é preciso colocar o primeiro item da lista original de pontos para não dar erro
+                    minimo = primeiroPontoX, //todo: 0.0
                     maximo = raiz,
                     valorY = pontosEstripagem.last().second
                 ) ?: return@lazy null
@@ -237,23 +241,23 @@ class McTMetodo(
         }
     }
 
-    fun calcular(): McTResultados {
-        if (mcTEspecificacoes.zF >= mcTEspecificacoes.xD) return McTResultados.Erro(R.string.resultados_erro1)
-        if (mcTEspecificacoes.zF <= mcTEspecificacoes.xB) return McTResultados.Erro(R.string.resultados_erro2)
+    suspend fun calcular(): McTResultados = withContext(Dispatchers.Default) {
+        if (mcTEspecificacoes.zF >= mcTEspecificacoes.xD) return@withContext McTResultados.Erro(R.string.resultados_erro1)
+        if (mcTEspecificacoes.zF <= mcTEspecificacoes.xB) return@withContext McTResultados.Erro(R.string.resultados_erro2)
 
-        val vazaoD = vazaoDestilado ?: return McTResultados.Erro(R.string.resultados_erro3)
-        val vazaoR = vazaoResiduo ?: return McTResultados.Erro(R.string.resultados_erro4)
-        val numMinEst = numMinEstagios ?: return McTResultados.Erro(R.string.resultados_erro5)
-        val razaoMinRef = razaoMinRefluxo ?: return McTResultados.Erro(R.string.resultados_erro6)
-        val razaoRef = razaoRefluxo ?: return McTResultados.Erro(R.string.resultados_erro7)
-        val dadosEstagios = numEstagios ?: return McTResultados.Erro(R.string.resultados_erro8)
-        if (mcTEspecificacoes.valorq != 1.0 && linhaq == null) return McTResultados.Erro(R.string.resultados_erro9)
-        val rRetif = retaOpRetificacao ?: return McTResultados.Erro(R.string.resultados_erro10)
-        val rEstrip = retaOpEstripagem ?: return McTResultados.Erro(R.string.resultados_erro11)
-        val intersecaox = xIntersecaoLinhaqRetificacao ?: return McTResultados.Erro(R.string.resultados_erro12)
-        val intersecaoy = yIntersecaoLinhaqRetificacao ?: return McTResultados.Erro(R.string.resultados_erro12)
+        val vazaoD = vazaoDestilado ?: return@withContext McTResultados.Erro(R.string.resultados_erro3)
+        val vazaoR = vazaoResiduo ?: return@withContext McTResultados.Erro(R.string.resultados_erro4)
+        val numMinEst = numMinEstagios ?: return@withContext McTResultados.Erro(R.string.resultados_erro5)
+        val razaoMinRef = razaoMinRefluxo ?: return@withContext McTResultados.Erro(R.string.resultados_erro6)
+        val razaoRef = razaoRefluxo ?: return@withContext McTResultados.Erro(R.string.resultados_erro7)
+        val dadosEstagios = numEstagios ?: return@withContext McTResultados.Erro(R.string.resultados_erro8)
+        if (mcTEspecificacoes.valorq != 1.0 && linhaq == null) return@withContext McTResultados.Erro(R.string.resultados_erro9)
+        val rRetif = retaOpRetificacao ?: return@withContext McTResultados.Erro(R.string.resultados_erro10)
+        val rEstrip = retaOpEstripagem ?: return@withContext McTResultados.Erro(R.string.resultados_erro11)
+        val intersecaox = xIntersecaoLinhaqRetificacao ?: return@withContext McTResultados.Erro(R.string.resultados_erro12)
+        val intersecaoy = yIntersecaoLinhaqRetificacao ?: return@withContext McTResultados.Erro(R.string.resultados_erro12)
 
-        return McTResultados.Sucesso(
+        McTResultados.Sucesso(
             vazaoDestilado = vazaoD,
             vazaoResiduo = vazaoR,
             numeroMinimoEstagios = numMinEst,

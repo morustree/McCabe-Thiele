@@ -36,6 +36,7 @@
     <dimen name="space_xl">24dp</dimen>
     <dimen name="space_2xl">32dp</dimen>
     <dimen name="space_3xl">40dp</dimen>
+    <dimen name="space_bottom_sheet">50dp</dimen>
 
 
     <!-- ========================= -->
@@ -72,7 +73,6 @@
     <dimen name="icon_size_medium">24dp</dimen>
     <dimen name="icon_size_large">32dp</dimen>
     <dimen name="icon_size_xlarge">38dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
 
 
     <!-- ========================= -->

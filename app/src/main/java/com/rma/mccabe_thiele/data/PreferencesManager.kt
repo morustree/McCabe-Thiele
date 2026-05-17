@@ -1,6 +1,7 @@
 package com.rma.mccabe_thiele.data
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.rma.mccabe_thiele.model.McTEspecificacoes
 
@@ -32,6 +33,16 @@ class PreferencesManager(context: Context) {
             vazaoF = prefs.getFloat("vazaoF", 100.0f).toDouble(),
             razoesR = prefs.getFloat("razoesR", 1.3f).toDouble()
         )
+    }
+
+    fun salvarTema(tema: Int){
+        prefs.edit{
+            putInt("temaestilo", tema)
+        }
+    }
+
+    fun lerTema(): Int {
+        return prefs.getInt("temaestilo", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
     /**

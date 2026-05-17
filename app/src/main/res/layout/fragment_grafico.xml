@@ -1,45 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.GraficoFragment">
 
+    <!-- Gráfico e botões -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button_calculate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_calculate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/graficoMcCabe" />
-
-
+        <!-- gráfico -->
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/graficoMcCabe"
+            android:id="@+id/graficoMcCabeT"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:layout_margin="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_import" />
-
-        <Button
-            android:id="@+id/button_import"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_import"
+            android:layout_margin="@dimen/margin_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- placeholder -->
+        <LinearLayout
+            android:id="@+id/layoutPlaceholderGrafico"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="@dimen/padding_medium"
+                android:src="@drawable/ic_table_24dp"
+                app:tint="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:text="@string/textoPlaceholder"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_body_medium" />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+
+    <!-- bottom sheet -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomSheetPainel"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:visibility="visible"
+        app:cardCornerRadius="@dimen/radius_large"
+        app:cardElevation="@dimen/elevation_level_4"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:paddingBottomSystemWindowInsets="true"
+        app:marginBottomSystemWindowInsets="false"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/padding_medium"
+            android:paddingEnd="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_xsmall"
+            android:paddingBottom="@dimen/padding_medium">
+
+            <!-- peek view -->
+            <LinearLayout
+                android:id="@+id/layoutResumo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_small"
+                android:orientation="vertical">
+
+                <!-- Indicador visual de arrastar -->
+                <ImageView
+                    android:id="@+id/indicadorArrastarBottomSheet"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_up_24dp"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/textTotalEstagios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textoResumo"
+                    android:textSize="@dimen/text_title_large"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- conteúdo detalhado -->
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_weight="1"
+                android:fadeScrollbars="false"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layoutDetalhesExpandido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textVazaoDestilado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoVzD" />
+
+                    <TextView
+                        android:id="@+id/textVazaoResiduo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoVzR" />
+
+                    <TextView
+                        android:id="@+id/textMinEst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoMinEst" />
+
+                    <TextView
+                        android:id="@+id/textEstCarga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoEstCarga" />
+
+                    <TextView
+                        android:id="@+id/textNumEst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoNumEst" />
+
+                    <TextView
+                        android:id="@+id/textRefluxoMinimo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoRefluxMin" />
+
+                    <TextView
+                        android:id="@+id/textRefluxo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoRefluxo" />
+
+                    <TextView
+                        android:id="@+id/textDegraus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_xsmall"
+                        android:text="@string/textoDegraus" />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

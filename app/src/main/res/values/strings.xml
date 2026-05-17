@@ -3,57 +3,67 @@
     <string name="app_name">McCabe-Thiele</string>
 
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label">McCabe-Thiele</string>
+    <string name="second_fragment_label">Specifications</string>
 
 
-    <string name="card_view_titulo">Item</string>
-    <string name="card_view_valor">0.9</string>
-    <string name="button_save_popup">Salvar</string>
-    <string name="text_input_popup_hint">Digite ou use o slider</string>
-    <string name="text_view_popup_titulo">Item</string>
-
-
-
-    <!-- McTMetodo -->
-    <string name="resultados_erro1">"A fração molar do componente mais volátil na alimentação (zF) não deve ser maior ou igual à do destilado (xD)."</string>
-    <string name="resultados_erro2">"A fração molar do componente mais volátil na alimentação (zF) não deve ser menor ou igual que a do resíduo (xB)."</string>
-    <string name="resultados_erro3">"Falha no cálculo da vazão de destilado."</string>
-    <string name="resultados_erro4">"Falha no cálculo da vazão de resíduo."</string>
-    <string name="resultados_erro5">"Falha no cálculo do número mínimo de estágios."</string>
-    <string name="resultados_erro6">"Falha no cálculo da razão mínima de refluxo."</string>
-    <string name="resultados_erro7">"Falha no cálculo da razão de refluxo. Verifique se R > Rmin."</string>
-    <string name="resultados_erro8">"Falha no cálculo do número de estágios."</string>
-    <string name="resultados_erro9">"Falha no cálculo da linha-q."</string>
-    <string name="resultados_erro10">"Falha no cálculo da reta de retificação."</string>
-    <string name="resultados_erro11">"Falha no cálculo da reta de estripagem."</string>
-    <string name="resultados_erro12">"Falha no cálculo da interseção das retas."</string>
-
-
+    <!-- McTResults / Calculation Errors -->
+    <string name="resultados_erro1">"(zF) must be strictly less than (xD)"</string>
+    <string name="resultados_erro2">"(zF) must be strictly greater than (xB)"</string>
+    <string name="resultados_erro3">"Failed to calculate distillate flow rate."</string>
+    <string name="resultados_erro4">"Failed to calculate bottoms flow rate."</string>
+    <string name="resultados_erro5">"Failed to calculate minimum number of stages."</string>
+    <string name="resultados_erro6">"Failed to calculate minimum reflux ratio."</string>
+    <string name="resultados_erro7">"Failed to calculate reflux ratio. Ensure R > Rmin."</string>
+    <string name="resultados_erro8">"Failed to calculate number of theoretical stages."</string>
+    <string name="resultados_erro9">"Failed to calculate q-line equation."</string>
+    <string name="resultados_erro10">"Failed to calculate rectifying operating line."</string>
+    <string name="resultados_erro11">"Failed to calculate stripping operating line."</string>
+    <string name="resultados_erro12">"Failed to calculate operating lines intersection."</string>
 
     <!-- GraficoFragment -->
-    <string name="csv_erro1">"Erro ao processar o arquivo"</string>
-    <string name="csv_erro2">"Falha na validação de dados do arquivo."</string>
-    <string name="csv_sucesso">Sucesso: %1$d pontos carregados.</string>
-    <string name="akima_qtde_pontos">"Existem poucos pontos no arquivo CSV para a interpolação Akima Spline (mínimo de 5 pontos)."</string>
-    <string name="akima_erro">Erro ao realizar o cálculo: %1$s</string>
-    <string name="desconhecido_erro">"Erro desconhecido"</string>
-    <string name="button_import">Importar csv</string>
-    <string name="button_calculate">Calcular</string>
+    <string name="csv_erro1">"Error processing file"</string>
+    <string name="csv_erro2">"File data validation failed"</string>
+    <string name="csv_sucesso">Success: %1$d points loaded.</string>
+    <string name="akima_qtde_pontos">"Insufficient points in CSV for Akima Spline (minimum of 5 points required)"</string>
+    <string name="akima_erro">Calculation error: %1$s</string>
+    <string name="desconhecido_erro">"Unknown error"</string>
+    <string name="button_import">Import CSV</string>
+    <string name="button_calculate">Calculate</string>
+    <string name="textoResumo">Number of stages: %1$.2f</string>
+    <string name="textoVzD">Distillate flow rate: %1$.2f</string>
+    <string name="textoVzR">Bottoms flow rate: %1$.2f</string>
+    <string name="textoMinEst">Minimum number of stages: %1$.2f</string>
+    <string name="textoEstCarga">Feed stage location from top: %1$.2f</string>
+    <string name="textoNumEst">Number of theoretical stages: %1$.2f</string>
+    <string name="textoRefluxMin">Minimum reflux ratio: %1$.2f</string>
+    <string name="textoRefluxo">Reflux ratio: %1$.2f</string>
+    <string name="textoDegraus">Stage coordinates can be shared using the button on the toolbar.</string>
+    <string name="textoPlaceholder">Save the specifications and import a CSV file containing the y-x equilibrium diagram points. Column A must contain the X dataset and Column B must contain the Y dataset. No other columns should be populated. Do not include blank rows.</string>
+    <string name="exportacao_erro">Failed to generate file for sharing</string>
 
 
     <!-- ConfiguracoesFragment -->
-    <string name="button_save_specs">Salvar</string>
-    <string name="button_save_resultado">"As configurações foram salvas"</string>
+    <string name="button_save_specs">Save</string>
+    <string name="button_save_resultado">"Settings saved successfully"</string>
+    <string name="card_view_titulo">Item</string>
+    <string name="card_view_valor">0.9</string>
+    <string name="button_save_popup">Save</string>
+    <string name="text_input_popup_hint">Enter value</string>
+    <string name="text_view_popup_titulo">Item</string>
+    <string name="spec_xd">x(D)</string>
+    <string name="spec_xb">x(B)</string>
+    <string name="spec_zf">z(F)</string>
+    <string name="spec_valorq">q</string>
+    <string name="spec_vazaof">"Feed Flow Rate (F)"</string>
+    <string name="spec_razoesr">"R/Rmin"</string>
 
 
     <!-- menu toolbar -->
-    <string name="toolbar_new">New file</string>
-    <string name="toolbar_open">Open file</string>
-    <string name="toolbar_delete">Delete file</string>
-    <string name="toolbar_settings">Settings</string>
+    <string name="toolbar_settings">Specifications</string>
+    <string name="toolbar_import">Import</string>
+    <string name="toolbar_export">Share</string>
+    <string name="app_theme">Theme</string>
 
 
 </resources>

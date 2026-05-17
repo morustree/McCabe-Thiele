@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
 
     //adicionadas
-    implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("org.apache.commons:commons-math3:3.6.1")
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
+    implementation("androidx.core:core-splashscreen:1.2.0")
 }

@@ -1,12 +1,16 @@
 package com.rma.mccabe_thiele.helper
 
 import android.graphics.Color
+import android.util.TypedValue
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.rma.mccabe_thiele.R
 import com.rma.mccabe_thiele.model.McTEspecificacoes
 import com.rma.mccabe_thiele.model.McTResultados
 import org.apache.commons.math3.analysis.UnivariateFunction
@@ -22,6 +26,8 @@ class McTChartManager(private val chart: LineChart) {
     }
 
     private fun configurarPadrao() {
+        val corEixos = ContextCompat.getColor(chart.context ?: return, android.R.color.darker_gray)
+
         chart.apply {
             description.isEnabled = false 
             setDrawGridBackground(false)
@@ -35,7 +41,8 @@ class McTChartManager(private val chart: LineChart) {
                 axisMaximum = 1f
                 setLabelCount(11, true)
                 setDrawGridLines(true)
-                gridColor = Color.LTGRAY
+                gridColor = corEixos
+                textColor = corEixos
             }
 
             axisRight.isEnabled = false 
@@ -46,7 +53,8 @@ class McTChartManager(private val chart: LineChart) {
                 axisMaximum = 1f
                 setLabelCount(11, true)
                 setDrawGridLines(true)
-                gridColor = Color.LTGRAY
+                gridColor = corEixos
+                textColor = corEixos
             }
             
             legend.apply {
@@ -59,6 +67,7 @@ class McTChartManager(private val chart: LineChart) {
                 textSize = 12f
                 yOffset = 10f
                 isWordWrapEnabled = true
+                textColor = corEixos
             }
 
             // Margens para garantir que nada seja cortado
@@ -76,6 +85,9 @@ class McTChartManager(private val chart: LineChart) {
         especificacoes: McTEspecificacoes,
         pontosOriginais: List<Pair<Double, Double>>
     ) {
+        val corEscada = ContextCompat.getColor(chart.context ?: return, R.color.graf_escada)
+        val corPontos = ContextCompat.getColor(chart.context ?: return, R.color.graf_pontos)
+
         val dataSets = ArrayList<com.github.mikephil.charting.interfaces.datasets.ILineDataSet>()
         // reta de 45 graus
         val reta45 = UnivariateFunction { x -> x }
@@ -121,19 +133,19 @@ class McTChartManager(private val chart: LineChart) {
         ).toLineDataSet("Estripagem", Color.GREEN))
 
         // degraus
-        dataSets.add(mcTResultados.pontosEscada.toLineDataSetFromPairs("Estágios", Color.BLACK).apply {
+        dataSets.add(mcTResultados.pontosEscada.toLineDataSetFromPairs("Estágios", corEscada).apply {
             lineWidth = 1.5f
             setDrawCircles(false)
         })
 
         // pontos do CSV
         if (pontosOriginais.isNotEmpty()) {
-            dataSets.add(pontosOriginais.toLineDataSetFromPairs("Dados CSV", Color.BLACK, desenharCirculos = true).apply {
+            dataSets.add(pontosOriginais.toLineDataSetFromPairs("Dados CSV", corPontos, desenharCirculos = true).apply {
                 setDrawCircles(true)
-                setCircleColor(Color.BLACK)
+                setCircleColor(corPontos)
                 circleRadius = 2f
                 setDrawCircleHole(false)
-                color = Color.BLACK
+                color = corPontos
                 setDrawHighlightIndicators(false)
                 isHighlightEnabled = false
                 lineWidth = 1f

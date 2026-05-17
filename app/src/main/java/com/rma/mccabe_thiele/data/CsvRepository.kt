@@ -18,14 +18,12 @@ class CsvRepository(private val contentResolver: ContentResolver) {
     /**
      * Converte uma lista de pontos em uma função contínua usando interpolação Akima Spline.
      */
-    fun criarFuncaoEquilibrio(pontos: List<Pair<Double, Double>>): UnivariateFunction {
-        //if (pontos.isEmpty()) return UnivariateFunction { x -> (2.5 * x) / (1 + (2.5 - 1) * x) }
-
+    suspend fun criarFuncaoEquilibrio(pontos: List<Pair<Double, Double>>): UnivariateFunction = withContext(Dispatchers.Default) {
         val ordenados = pontos.distinctBy { it.first }.sortedBy { it.first }
         val x = ordenados.map { it.first }.toDoubleArray()
         val y = ordenados.map { it.second }.toDoubleArray()
 
-        return AkimaSplineInterpolator().interpolate(x, y)
+        AkimaSplineInterpolator().interpolate(x, y)
     }
 
     /**

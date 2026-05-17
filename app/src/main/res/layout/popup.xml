@@ -7,35 +7,33 @@
     app:cardCornerRadius="@dimen/radius_large"
     app:cardElevation="@dimen/elevation_level_4">
 
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/padding_large">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/padding_medium">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_medium"
+            android:layout_weight="1"
             android:text="@string/text_view_popup_titulo"
             android:textSize="@dimen/text_title_large"
             android:textStyle="bold" />
 
-        <!-- todo -->
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:srcCompat="@drawable/ic_arrow_back_24dp"
-            app:tint="@color/black" />
+            app:tint="?attr/colorOnSurface" />
 
     </LinearLayout>
 
