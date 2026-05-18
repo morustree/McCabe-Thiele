@@ -27,13 +27,26 @@
             android:textSize="@dimen/text_title_large"
             android:textStyle="bold" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/imageButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_arrow_back_24dp"
-            app:tint="?attr/colorOnSurface" />
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="@dimen/button_height"
+            android:layout_height="@dimen/button_height"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:insetTop="0dp"
+            android:padding="0dp"
+            app:backgroundTint="?attr/colorPrimaryContainer"
+            app:cornerRadius="@dimen/radius_medium"
+            app:elevation="@dimen/elevation_level_3"
+            app:icon="@drawable/ic_done_outline_24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="@dimen/icon_size_medium"
+            app:iconTint="?attr/colorOnPrimaryContainer"
+            app:strokeColor="?attr/colorOutline"
+            app:strokeWidth="1dp" />
 
     </LinearLayout>
 

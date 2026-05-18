@@ -23,12 +23,12 @@
 
 
     <!-- GraficoFragment -->
-    <string name="csv_erro1">"Erro ao processar o arquivo"</string>
+    <string name="csv_erro1">"Falha ao processar o arquivo"</string>
     <string name="csv_erro2">"Falha na validação de dados do arquivo"</string>
-    <string name="csv_sucesso">Sucesso: %1$d pontos carregados.</string>
-    <string name="akima_qtde_pontos">"Existem poucos pontos no CSV para Akima Spline (mínimo de 5 pontos)"</string>
-    <string name="akima_erro">Erro ao realizar o cálculo: %1$s</string>
-    <string name="desconhecido_erro">"Erro desconhecido"</string>
+    <string name="csv_sucesso">%1$d pontos carregados</string>
+    <string name="akima_qtde_pontos">"Poucos pontos no CSV (mínimo de 5 pontos)"</string>
+    <string name="akima_erro">Falha ao realizar o cálculo: %1$s</string>
+    <string name="desconhecido_erro">"Falha desconhecida"</string>
     <string name="button_import">Importar csv</string>
     <string name="button_calculate">Calcular</string>
     <string name="textoResumo">Número de estágios: %1$.2f</string>
@@ -41,7 +41,7 @@
     <string name="textoRefluxo">Razão de refluxo: %1$.2f</string>
     <string name="textoDegraus">As coordenadas dos estágios podem ser compartilhadas por meio do botão na toolbar.</string>
     <string name="textoPlaceholder">Salve as especificações na toolbar e importe um CSV com os pontos do diagrama y-x. A coluna A deve conter o conjunto X e a coluna B, o conjunto Y. Não deve haver outras colunas preenchidas. Não deve haver linhas em branco.</string>
-    <string name="exportacao_erro">Erro ao gerar arquivo para exportação</string>
+    <string name="exportacao_erro">Falha ao gerar arquivo para exportação</string>
 
 
 

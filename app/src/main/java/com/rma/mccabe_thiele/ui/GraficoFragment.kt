@@ -134,11 +134,13 @@ class GraficoFragment : Fragment() {
                 }
                 
                 if (dadosImportados.isNotEmpty()) {
-                    executarCalculo()
+                    executarCalculo(dadosImportados)
                 }
                 exibirSnackbarTopo(mensagem, false)
             } catch (e: Exception) {
-                exibirSnackbarTopo(getString(R.string.csv_erro1), false)
+                if (isAdded) {
+                    exibirSnackbarTopo(getString(R.string.csv_erro1), false)
+                }
                 limparInterface()
             } finally {
                 _binding?.let { binding ->
@@ -153,37 +155,52 @@ class GraficoFragment : Fragment() {
     /**
      * Realiza o cálculo de McCabe-Thiele de forma assíncrona.
      */
-    private fun executarCalculo() {
-        limparInterface()
+    private fun executarCalculo(dadosParaCalculo: List<Pair<Double, Double>>) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 toolbarViewModel.setBotaoImportarAtivo(false)
-                binding.layoutPlaceholderGrafico.isClickable = false
+                toolbarViewModel.setBotaoExportarAtivo(false)
+                _binding?.layoutPlaceholderGrafico?.isClickable = false
                 
-                val curvaEquilibrio = csvRepository.criarFuncaoEquilibrio(dadosImportados)
+                val curvaEquilibrio = csvRepository.criarFuncaoEquilibrio(dadosParaCalculo)
                 val specs = prefsManager.lerEspecificacoes()
-                val metodo = McTMetodo(specs, curvaEquilibrio, dadosImportados.first().first)
+                val metodo = McTMetodo(specs, curvaEquilibrio, dadosParaCalculo.first().first)
                 
                 when (val resposta = metodo.calcular()) {
                     is McTResultados.Sucesso -> {
-                        chartManager.renderizar(
-                            mcTResultados = resposta,
-                            curvaEquilibrio = curvaEquilibrio,
-                            especificacoes = specs,
-                            pontosOriginais = dadosImportados
-                        )
-                        ultimosResultados = resposta
-                        carregarDadosInterface(resposta)
+                        _binding?.let {
+                            chartManager.renderizar(
+                                mcTResultados = resposta,
+                                curvaEquilibrio = curvaEquilibrio,
+                                especificacoes = resposta.especificacoes,
+                                pontosOriginais = dadosParaCalculo
+                            )
+                            ultimosResultados = resposta
+                            carregarDadosInterface(resposta)
+                            toolbarViewModel.setBotaoExportarAtivo(true)
+                        }
                     }
                     is McTResultados.Erro -> {
-                        exibirSnackbarTopo(getString(resposta.mensagem), true)
-                        chartManager.renderizarErro(curvaEquilibrio = curvaEquilibrio, pontosOriginais = dadosImportados)
+                        if (isAdded) {
+                            exibirSnackbarTopo(getString(resposta.mensagem), true)
+                        }
+                        _binding?.let {
+                            chartManager.renderizarErro(curvaEquilibrio = curvaEquilibrio, pontosOriginais = dadosParaCalculo)
+                        }
+                        toolbarViewModel.setBotaoExportarAtivo(false)
                     }
                 }
             } catch (e: org.apache.commons.math3.exception.NumberIsTooSmallException) {
-                exibirSnackbarTopo(getString(R.string.akima_qtde_pontos), true)
+                if (isAdded) {
+                    exibirSnackbarTopo(getString(R.string.akima_qtde_pontos), true)
+                }
+                toolbarViewModel.setBotaoExportarAtivo(false)
             } catch (e: Exception) {
-                exibirSnackbarTopo(getString(R.string.akima_erro, e.message ?: getString(R.string.desconhecido_erro)), true)
+                if (isAdded) {
+                    val msg = getString(R.string.akima_erro, e.message ?: getString(R.string.desconhecido_erro))
+                    exibirSnackbarTopo(msg, true)
+                }
+                toolbarViewModel.setBotaoExportarAtivo(false)
             } finally {
                 toolbarViewModel.setBotaoImportarAtivo(true)
                 _binding?.layoutPlaceholderGrafico?.isClickable = true
@@ -193,12 +210,17 @@ class GraficoFragment : Fragment() {
 
     private fun limparInterface(){
         val binding = _binding ?: return
+        
+        // Limpeza de variáveis de estado
+        ultimosResultados = null
+        dadosImportados = emptyList()
+
+        toolbarViewModel.setBotaoExportarAtivo(false)
         binding.graficoMcCabeT.clear()
         binding.graficoMcCabeT.invalidate()
         binding.graficoMcCabeT.visibility = View.GONE
         binding.layoutPlaceholderGrafico.visibility = View.VISIBLE
         toolbarViewModel.setBotaoImportarAtivo(true)
-        //binding.bottomSheetPainel.isVisible = false
         bottomSheetBehavior.apply {
             isHideable = true
             state = BottomSheetBehavior.STATE_HIDDEN

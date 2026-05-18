@@ -5,6 +5,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction
 
 sealed class McTResultados {
     data class Sucesso(
+        val especificacoes: McTEspecificacoes,
         val vazaoDestilado: Double,
         val vazaoResiduo: Double,
         val numeroMinimoEstagios: Double,

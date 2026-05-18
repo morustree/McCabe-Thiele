@@ -10,22 +10,22 @@
     <!-- McTResults / Calculation Errors -->
     <string name="resultados_erro1">"(zF) must be strictly less than (xD)"</string>
     <string name="resultados_erro2">"(zF) must be strictly greater than (xB)"</string>
-    <string name="resultados_erro3">"Failed to calculate distillate flow rate."</string>
-    <string name="resultados_erro4">"Failed to calculate bottoms flow rate."</string>
-    <string name="resultados_erro5">"Failed to calculate minimum number of stages."</string>
-    <string name="resultados_erro6">"Failed to calculate minimum reflux ratio."</string>
-    <string name="resultados_erro7">"Failed to calculate reflux ratio. Ensure R > Rmin."</string>
-    <string name="resultados_erro8">"Failed to calculate number of theoretical stages."</string>
-    <string name="resultados_erro9">"Failed to calculate q-line equation."</string>
-    <string name="resultados_erro10">"Failed to calculate rectifying operating line."</string>
-    <string name="resultados_erro11">"Failed to calculate stripping operating line."</string>
-    <string name="resultados_erro12">"Failed to calculate operating lines intersection."</string>
+    <string name="resultados_erro3">"Failed to calculate distillate flow rate"</string>
+    <string name="resultados_erro4">"Failed to calculate bottoms flow rate"</string>
+    <string name="resultados_erro5">"Failed to calculate minimum number of stages"</string>
+    <string name="resultados_erro6">"Failed to calculate minimum reflux ratio"</string>
+    <string name="resultados_erro7">"Failed to calculate reflux ratio. Ensure R > Rmin"</string>
+    <string name="resultados_erro8">"Failed to calculate number of theoretical stages"</string>
+    <string name="resultados_erro9">"Failed to calculate q-line equation"</string>
+    <string name="resultados_erro10">"Failed to calculate rectifying operating line"</string>
+    <string name="resultados_erro11">"Failed to calculate stripping operating line"</string>
+    <string name="resultados_erro12">"Failed to calculate operating lines intersection"</string>
 
     <!-- GraficoFragment -->
     <string name="csv_erro1">"Error processing file"</string>
     <string name="csv_erro2">"File data validation failed"</string>
-    <string name="csv_sucesso">Success: %1$d points loaded.</string>
-    <string name="akima_qtde_pontos">"Insufficient points in CSV for Akima Spline (minimum of 5 points required)"</string>
+    <string name="csv_sucesso">%1$d points loaded</string>
+    <string name="akima_qtde_pontos">"Insufficient points in CSV (minimum of 5 points required)"</string>
     <string name="akima_erro">Calculation error: %1$s</string>
     <string name="desconhecido_erro">"Unknown error"</string>
     <string name="button_import">Import CSV</string>

@@ -17,6 +17,9 @@ class ToolbarEventViewModel : ViewModel() {
     private val _botaoImportarAtivo = MutableStateFlow(true)
     val botaoImportarAtivo = _botaoImportarAtivo.asStateFlow()
 
+    private val _botaoExportarAtivo = MutableStateFlow(false)
+    val botaoExportarAtivo = _botaoExportarAtivo.asStateFlow()
+
     private val _onExportarCsvClick = MutableSharedFlow<Unit>()
     val onExportarCsvClick = _onExportarCsvClick.asSharedFlow()
 
@@ -28,6 +31,10 @@ class ToolbarEventViewModel : ViewModel() {
 
     fun setBotaoImportarAtivo(ativo: Boolean) {
         _botaoImportarAtivo.value = ativo
+    }
+
+    fun setBotaoExportarAtivo(ativo: Boolean) {
+        _botaoExportarAtivo.value = ativo
     }
 
     fun dispararCliqueExportarCsv() {

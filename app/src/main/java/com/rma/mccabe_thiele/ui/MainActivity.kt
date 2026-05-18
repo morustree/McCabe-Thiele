@@ -98,8 +98,15 @@ class MainActivity : AppCompatActivity() {
     private fun toolbarListener() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                toolbarViewModel.botaoImportarAtivo.collectLatest { ativos ->
-                    menuToolbar?.findItem(R.id.action_import)?.isEnabled = ativos
+                launch {
+                    toolbarViewModel.botaoImportarAtivo.collectLatest { ativos ->
+                        menuToolbar?.findItem(R.id.action_import)?.isEnabled = ativos
+                    }
+                }
+                launch {
+                    toolbarViewModel.botaoExportarAtivo.collectLatest { ativos ->
+                        menuToolbar?.findItem(R.id.action_export)?.isEnabled = ativos
+                    }
                 }
             }
         }

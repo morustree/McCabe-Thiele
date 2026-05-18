@@ -144,7 +144,7 @@ class McTMetodo(
             //y1 = f(x); y2 = g(x). Na interseção, y1 = y2. Então: f(x) = g(x) e f(x) - g(x) = 0
             raiz = calcularXIntersecao(
                 funcao1 = curvaEquilibirio,
-                minimo = primeiroPontoX, //todo: 0.0
+                minimo = primeiroPontoX,
                 maximo = raiz,
                 valorY = pontos.last().second
             ) ?: return@lazy null
@@ -173,49 +173,46 @@ class McTMetodo(
             var indice = 0
             // o ponto inicial é (xD, xD) sobre a reta de 45
             val pontosRetificacao = mutableListOf<Pair<Double, Double>>()
-            pontosRetificacao.add(Pair(mcTEspecificacoes.xD, mcTEspecificacoes.xD))
+            pontosRetificacao.add(Pair(raiz, raiz))
+            raiz = calcularXIntersecao( //todo
+                funcao1 = curvaEquilibirio,
+                minimo = primeiroPontoX,
+                maximo = raiz,
+                valorY = pontosRetificacao.last().second
+            ) ?: return@lazy null
             while (raiz > xIntersecao && indice < 500) {
-                raiz = calcularXIntersecao(
-                    funcao1 = curvaEquilibirio,
-                    minimo = primeiroPontoX, //todo: 0.0
-                    maximo = raiz,
-                    valorY = pontosRetificacao.last().second
-                ) ?: return@lazy null
                 pontosRetificacao.add(Pair(raiz, pontosRetificacao.last().second)) // atualiza o valor de x e repete o valor do y anterior - faz um ponto sobre a curva de equilíbrio
                 pontosRetificacao.add(Pair(raiz,retaRetificacao.value(raiz))) // faz um ponto sobre a reta de retificação
                 numEstagiosRetificacao++
                 indice++
+                raiz = calcularXIntersecao(
+                    funcao1 = curvaEquilibirio,
+                    minimo = primeiroPontoX,
+                    maximo = raiz,
+                    valorY = pontosRetificacao.last().second
+                ) ?: return@lazy null
             }
 
-            val fracaoEstagio = if (pontosRetificacao.size >= 3) {
-                (pontosRetificacao[(pontosRetificacao.size - 3)].first - xIntersecao) / (pontosRetificacao[(pontosRetificacao.size - 3)].first - pontosRetificacao.last().first)
+            val fracaoEstagio = if (pontosRetificacao.last().first > xIntersecao) {
+                (pontosRetificacao.last().first - xIntersecao) / (pontosRetificacao.last().first - raiz)
             } else 0.0
 
-            numEstagiosRetificacao = numEstagiosRetificacao - 1 + fracaoEstagio
+            numEstagiosRetificacao += fracaoEstagio
 
             indice = 0
             var numEstagiosEstripagem = 0.0
             val pontosEstripagem = mutableListOf<Pair<Double, Double>>()
 
-            if (pontosRetificacao.size < 2) return@lazy null
+            pontosEstripagem.add(Pair(raiz, pontosRetificacao.last().second)) // ponto sobre a curva de equilíbrio
 
-            pontosEstripagem.add(
-                Pair(
-                    pontosRetificacao[(pontosRetificacao.size - 2)].first,
-                    pontosRetificacao[(pontosRetificacao.size - 2)].second
-                )
-            ) // ponto sobre a curva de equilíbrio
-
-            val fracao1 = if (pontosRetificacao.size >= 3) {
-                (xIntersecao - pontosRetificacao[(pontosRetificacao.size - 2)].first) / (pontosRetificacao[(pontosRetificacao.size - 3)].first - pontosRetificacao[(pontosRetificacao.size - 2)].first)
-            } else 0.0
+            val fracao1 = (xIntersecao - raiz) / (pontosRetificacao.last().first - raiz)
 
             while (raiz > mcTEspecificacoes.xB && indice < 500) {
                 pontosEstripagem.add(Pair(raiz, retaEstripagem.value(raiz))) // faz um ponto sobre a reta de estripagem
                 numEstagiosEstripagem++
                 raiz = calcularXIntersecao(
                     funcao1 = curvaEquilibirio,
-                    minimo = primeiroPontoX, //todo: 0.0
+                    minimo = primeiroPontoX,
                     maximo = raiz,
                     valorY = pontosEstripagem.last().second
                 ) ?: return@lazy null
@@ -258,6 +255,7 @@ class McTMetodo(
         val intersecaoy = yIntersecaoLinhaqRetificacao ?: return@withContext McTResultados.Erro(R.string.resultados_erro12)
 
         McTResultados.Sucesso(
+            especificacoes = mcTEspecificacoes,
             vazaoDestilado = vazaoD,
             vazaoResiduo = vazaoR,
             numeroMinimoEstagios = numMinEst,
