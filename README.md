@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16048526.png)](https://doi.org/10.5281/zenodo.16048526)
+
+
 # McCabe–Thiele Method (Android/Kotlin)
 
 A graphical implementation of the McCabe-Thiele method for binary distillation under constant and uniform pressure. Supports total condenser (saturated‑liquid distillate), partial condenser (single vapor outlet), and partial reboiler operation. Assumes a single feed stage and no sidestreams.
