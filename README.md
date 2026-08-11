@@ -1,5 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16048526.png)](https://doi.org/10.5281/zenodo.16048526)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16048526.svg)](https://doi.org/10.5281/zenodo.16048526)
 
 # McCabe–Thiele Method (Android/Kotlin)
 
