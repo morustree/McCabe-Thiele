@@ -7,7 +7,7 @@ A graphical implementation of the McCabe-Thiele method for binary distillation u
 
 ## 📝 Overview
 
-This project is a rewritten and modernized version of an older Scilab implementation originally developed during my engineering studies.
+This project is a rewritten and modernized version of an older Scilab implementation originally developed during the author's engineering studies.
 The original Scilab project includes an additional calculation mode: a partial condenser with liquid distillate + vapor distillate.
 
 
